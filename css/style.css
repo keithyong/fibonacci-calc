@@ -1,14 +1,28 @@
-
 .container {
 	width: 560px;
 }
-*{
+body {
+	min-width: 640px;
+}
+#github-logo-repo {
+	margin: 10px;
+}
+nav {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+    right: 0px;
+    overflow: hidden;
+    z-index: 99;
+    text-align: right;
+
 }
 input {
     margin-bottom: 20px;
 }
 form {
     margin: 0;
+
 }
 p{
 	font-family: 'Droid Serif', serif;
