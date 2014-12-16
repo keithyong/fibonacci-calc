@@ -7,28 +7,27 @@
         <script type="text/javascript" src="d3/d3.js"></script>
     </head>
     <body>
+    <div class="container">
         <div class="mainprogram">
-        <h1>Fibonacci Calculator</h1>
-        <p>
-            Dynamic programming fibonacci calculator. 
-        </p>
-        <form>
-        <div class="row">
-            <div class="twelve columns">
+            <div class="row">
+                <h1>Fibonacci Calculator</h1>
+                <p> Dynamic programming fibonacci calculator.  </p>
+            </div>
+            <form>
+            <div class="row">
                 <input class="u-full-width" type="text" id="numinput" placeholder="Enter a number..."></input>
             </div>
-        </div>
-    </form>
-        <div class="row">
-            <button class="button-primary" onclick="runFastFib()">Fast Way</button>
-            <button onclick="runSlowFib()">Slow Way</button>
-        </div>
+        </form>
+            <div class="row">
+                <button class="button-primary" onclick="runFastFib()">Fast Way</button>
+                <button onclick="runSlowFib()">Slow Way</button>
+            </div>
 
-        <hr>
-        <p id="result"> </p>
-        <p id="runningTime"> </p>
-        <hr>
-    </div>
+            <hr>
+            <p id="result"> </p>
+            <p id="runningTime"> </p>
+            <hr>
+        </div>
 
         <div class="row">
             <p>
@@ -124,5 +123,6 @@
                 return slowFib(n - 1) + slowFib(n - 2);
             }
         </script>
+    </div>
     </body>
 </html>
