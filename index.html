@@ -5,124 +5,44 @@
         <link rel="stylesheet" type="text/css" href="css/normalize.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script type="text/javascript" src="d3/d3.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
+
     </head>
     <body>
-    <div class="container">
-        <div class="mainprogram">
-            <div class="row">
-                <h1>Fibonacci Calculator</h1>
-                <p> Dynamic programming fibonacci calculator.  </p>
-            </div>
-            <form>
-            <div class="row">
-                <input class="u-full-width" type="text" id="numinput" placeholder="Enter a number..."></input>
-            </div>
-        </form>
-            <div class="row">
-                <button class="button-primary" onclick="runFastFib()">Fast Way</button>
-                <button onclick="runSlowFib()">Slow Way</button>
-            </div>
-
-            <hr>
-            <p id="result"> </p>
-            <p id="runningTime"> </p>
-            <hr>
+    <div class="container mainprogram">
+        <div class="row">
+            <h1>Fibonacci Calculator</h1>
+            <p> Dynamic programming fibonacci calculator.  </p>
         </div>
-
+        
         <div class="row">
-            <p>
-        <pre><code>function slowFib(n){
-    if (n == 0)
-        return 0;
-    if (n == 1)
-        return 1;
-    return slowFib(n - 1) + slowFib(n - 2);
-}</code></pre>
+            <form><input class="u-full-width" type="text" id="numinput" placeholder="Enter a number..."></input></form>
+        </div>
         <div class="row">
+            <button class="button-primary" onclick="runFastFib()">Fast Way</button>
+            <button onclick="runSlowFib()">Slow Way</button>
+        </div>
+        <div class="row">
+        <hr>
+        </div>
+        <p id="result"> </p>
+        <p id="runningTime"> </p>
+    </div>
+    <div id="blog-page-one">
+        <div class="container blog">   
+        <hr>
+        <h1>Why does this work?</h1>
+        <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere
 
-        <script>
-            var MAXN = 200;
-            var UNKNOWN = -1;
-            var f = new Array(MAXN + 1);
 
-            function init(){
-                var num = parseInt(document.getElementById("numinput").value);
-                document.getElementById("result").innerHTML = "The " + num + "th Fibonacci number is ";
-                document.getElementById("runningTime").innerHTML = "Calculated in ";
-                return num;
-            }
-
-            function printResults(result, elapsedTime){
-                document.getElementById("result").innerHTML += "<code>" + result + "</code>.";
-                if (elapsedTime >= 100) {
-                    document.getElementById("runningTime").innerHTML += elapsedTime/1000 + " seconds";
-                }
-                else if (elapsedTime == 1){
-                    document.getElementById("runningTime").innerHTML += elapsedTime + " millisecond";
-                } 
-                else {
-                    document.getElementById("runningTime").innerHTML += elapsedTime + " milliseconds";
-                }
-            }
-
-            function runFastFib(){
-                var start = new Date().getTime();
-                var num = init();
-                var result = fib(num);
-                var elapsed = new Date().getTime() - start;
-                printResults(result, elapsed);
-            }
-
-            function runSlowFib(){
-                var num = init();
-                if (num > 42){
-                    var confirmation = confirm("Warning: the program will take more than five seconds to calculate!");
-                }
-                var start = new Date().getTime();
-                var result = slowFib(num);
-                var elapsed = new Date().getTime() - start;
-                printResults(result, elapsed);
-            }
-
-            function fib(n){
-                f[0] = 0;
-                f[1] = 1;
-
-                for (var i = 2; i <= n; i++){
-                    f[i] = UNKNOWN;
-                }
-
-                return actualFib(n);
-            }
-
-            function actualFib(n){
-                if (n === 0){
-                    return f[0];
-                }
-                if (n === 1){
-                    return f[1];
-                }
-                if (f[n - 2] === UNKNOWN){
-                    f[n - 2] = actualFib(n - 2); }
-                if (f[n - 1] === UNKNOWN){
-                    f[n - 1] = actualFib(n - 1);
-                }
-
-                f[n] = f[n - 1] + f[n - 2];
-            
-                return f[n];
-            }
-
-            function slowFib(n){
-                if (n == 0){
-                    return 0;
-                }
-                if (n == 1){
-                    return 1;
-                }
-                return slowFib(n - 1) + slowFib(n - 2);
-            }
-        </script>
+        </p>     
+            <div class="row">
+                <script src="https://gist.github.com/keithyong/a248316a6e7708cfeb98.js"></script>
+                <script src="https://gist.github.com/keithyong/884a70ffb81deb7b2b0d.js"></script>
+            </div>
+        </div>
     </div>
     </body>
 </html>

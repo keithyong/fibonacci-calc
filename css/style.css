@@ -1,13 +1,33 @@
-body {
-    margin: 100px auto auto auto;
-    width: 560px;
+
+.container {
+	width: 560px;
 }
-.mainprogram { 
-    text-align: center;
+*{
 }
 input {
     margin-bottom: 20px;
 }
 form {
     margin: 0;
+}
+p{
+	font-family: 'Droid Serif', serif;
+}
+h1 {
+	font-size: 4rem;
+	margin-top: 0;
+}
+.mainprogram {
+	margin: 100px auto auto auto;
+	height: 80vh;
+	width: 480px;	
+	text-align: center;
+}
+#blog-page-one {
+	width: 100%;
+	background-color: #FFFFFF;
+	position: relative;
+}
+.results {
+	border-left: 1px solid;
 }
