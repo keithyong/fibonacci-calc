@@ -1,0 +1,13 @@
+body {
+    width: 500px;
+    margin: 100px auto auto auto;
+}
+.mainprogram { 
+    text-align: center;
+}
+input {
+    margin: 20px;
+}
+form {
+    margin: 0;
+}
