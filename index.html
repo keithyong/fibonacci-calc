@@ -1,15 +1,17 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/skeleton.css">
         <link rel="stylesheet" type="text/css" href="css/normalize.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script type="text/javascript" src="d3/d3.js"></script>
-        <script type="text/javascript" src="js/script.js"></script>
+        <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
         <link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
 
     </head>
     <body>
+
     <nav>
         <a href="https://github.com/keithyong/fibonacci-calc" target="_blank">
             <img src="images/GitHub-Mark-64px.png" height="42" id="github-logo-repo">
@@ -38,16 +40,25 @@
         <div class="container blog">   
         <hr>
         <h4>Why does this work?</h4>
+        <p>A teacher or a book has problably shown us how to calculate the Fibonacci with recursion. But did you know that this recursive method can take years to find your answer given a large n?</p>
+        <script src="https://gist.github.com/keithyong/a248316a6e7708cfeb98.js"></script>
+
         <p>
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere
-
-
+        The slower version repeats itself - a lot. Take a look at the recursion tree for <code>slowFib(13)</code>:
         </p>     
-            <div class="row">
-                <script src="https://gist.github.com/keithyong/a248316a6e7708cfeb98.js"></script>
-                <script src="https://gist.github.com/keithyong/884a70ffb81deb7b2b0d.js"></script>
+        <div id="recursionTreeOne">
+        </div>
+        <p>
+        That's a lot of slowFib calls! Looking at the tree, we see that the recursive fibonacci function calls <code>slowFib(0) = 1</code> and <code>slowFib(1) = 1</code> exactly 13 times, <code>slowFib(2) = 2</code> exactly 5 times, and so on. Very cool pattern, but very resource intensive. There has to be a better way.</p>
+    
+        <p>Introducing a clever little trick called dynamic programming. Instead of calculating <code>slowFib(2)</code> five times, why not simply save the result of <code>slowFib(2)</code> into an array, then whenever the program needs to know what <code>slowFib(2)</code> is, simply grab it from the array? Array accessing is O(1) time so this is a very fast solution.
+        </p>
+        <div class="row">
+            <script src="https://gist.github.com/keithyong/884a70ffb81deb7b2b0d.js"></script>
             </div>
         </div>
     </div>
+        <script type="text/javascript" src="js/script.js"></script>
+
     </body>
 </html>

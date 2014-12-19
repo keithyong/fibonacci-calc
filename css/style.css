@@ -45,3 +45,14 @@ h1 {
 .results {
 	border-left: 1px solid;
 }
+
+/* Style for the D3 tree */
+.node {
+    stroke: #fff;
+    stroke-width: 1px;
+}
+
+.link{
+    fill: none;
+    stroke: #000;
+}
