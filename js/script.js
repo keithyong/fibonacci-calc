@@ -20,6 +20,12 @@ var nodeRadius = 12;
 
 var mainColor = "#111111";
 
+var strokeWidth = 1;
+
+var nodeFontFamily = "Source Sans Pro";
+var nodeFontFamilyCode = "Courier";
+var nodeFontSize = 14;
+
 function init(){
     var num = parseInt(document.getElementById("numinput").value);
     document.getElementById("result").innerHTML = "The " + num + "th Fibonacci number is ";
@@ -140,7 +146,7 @@ var appendTreeToID = function(treeData, id, svgCanvasWidth, svgCanvasHeight, tre
     .attr("r", nodeRadius)
     .attr("fill", "white")
     .attr("stroke", "black")
-    .attr("stroke-width", "1");
+    .attr("stroke-width", strokeWidth);
 
     node.filter(function(d) {
         return d.num.charAt(0) == 'f';
@@ -148,10 +154,10 @@ var appendTreeToID = function(treeData, id, svgCanvasWidth, svgCanvasHeight, tre
     .append("svg:rect")
     .attr("fill", "white")
     .attr("stroke", "#111111")
-    .attr("stroke-width", "1")
-    .attr("width", 34)
+    .attr("stroke-width", strokeWidth)
+    .attr("width", 38)
     .attr("height", 20)
-    .attr("x", -18)
+    .attr("x", -20)
     .attr("y", -10)
     .attr("rx", "3")
     .attr("ry", "3");
@@ -161,7 +167,12 @@ var appendTreeToID = function(treeData, id, svgCanvasWidth, svgCanvasHeight, tre
     .attr("text-anchor", "middle")
     .text(function(d) { return d.num; })
     .attr("font-size", nodeFontSize)
-    .attr("font-family", "Courier")
+    .attr("font-family", function(d){
+        if (d.num.charAt(0) === 'f')
+            return nodeFontFamilyCode;
+        else
+            return nodeFontFamily;
+    })
     .attr("fill", "#111111");
 };
 

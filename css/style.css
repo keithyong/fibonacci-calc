@@ -11,6 +11,11 @@ button {
 #github-logo-repo {
     margin: 10px;
 }
+#arrowDown {
+    position: relative;
+    position: absolute:
+    bottom: 0;
+}
 nav {
     position: fixed;
     top: 0px;
