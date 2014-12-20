@@ -16,7 +16,7 @@ var treeWidthTwo = 300;
 var treeHeightTwo = 180;
 
 var nodeFontSize = 12;
-var nodeRadius = 3.5;
+var nodeRadius = 12;
 
 var mainColor = "#111111";
 
@@ -133,18 +133,36 @@ var appendTreeToID = function(treeData, id, svgCanvasWidth, svgCanvasHeight, tre
     .enter().append("svg:g")
     .attr("transform", function(d) { return "translate(" + d.x + "," + d.y +")";})
 
-    node.append("svg:circle")
+    node.filter(function(d) {
+        return d.num.charAt(0) != 'f';
+    })
+    .append("svg:circle")
     .attr("r", nodeRadius)
-    .attr("fill", "#111111");
+    .attr("fill", "white")
+    .attr("stroke", "black")
+    .attr("stroke-width", "1");
+
+    node.filter(function(d) {
+        return d.num.charAt(0) == 'f';
+    })
+    .append("svg:rect")
+    .attr("fill", "white")
+    .attr("stroke", "#111111")
+    .attr("stroke-width", "1")
+    .attr("width", 34)
+    .attr("height", 20)
+    .attr("x", -18)
+    .attr("y", -10)
+    .attr("rx", "3")
+    .attr("ry", "3");
 
     node.append("svg:text")
-    .attr("dx", function(d) { return d.children ? -8: 8; })
     .attr("dy", 3)
-    .attr("text-anchor", function (d) {return d.children ? "end" : "start"; })
+    .attr("text-anchor", "middle")
     .text(function(d) { return d.num; })
     .attr("font-size", nodeFontSize)
     .attr("font-family", "Courier")
-    .attr("fill", "#111111")
+    .attr("fill", "#111111");
 };
 
 var treeOneData = {"num": "13", "info" : "tst", "children" : 
