@@ -2,6 +2,24 @@ var MAXN = 200;
 var UNKNOWN = -1;
 var f = new Array(MAXN + 1);
 
+/* D3 Tree variables */
+var svgCanvasWidthOne = 700;
+var svgCanvasHeightOne = 400;
+
+var treeWidthOne = 450;
+var treeHeightOne = 300;
+
+var svgCanvasWidthTwo = 550;
+var svgCanvasHeightTwo = 280;
+
+var treeWidthTwo = 300;
+var treeHeightTwo = 180;
+
+var nodeFontSize = 12;
+var nodeRadius = 3.5;
+
+var mainColor = "#111111";
+
 function init(){
     var num = parseInt(document.getElementById("numinput").value);
     document.getElementById("result").innerHTML = "The " + num + "th Fibonacci number is ";
@@ -82,18 +100,54 @@ function slowFib(n){
 
 /* ------------------------------------------------------
  * 
- * Recursion Tree Script
+ * Generate #recursionTreeOne
  *  
  * ------------------------------------------------------ */
-var svgCanvasWidth = 700;
-var svgCanvasHeight = 400;
 
-var treeWidth = 450;
-var treeHeight = 300;
 
-var nodeFontSize = 14;
 
-var treeData = {"num": "13", "info" : "tst", "children" : 
+var appendTreeToID = function(treeData, id, svgCanvasWidth, svgCanvasHeight, treeWidth, treeHeight) {
+    var vis = d3.select(id).append("svg:svg")
+    .attr("width", svgCanvasWidth)
+    .attr("height", svgCanvasHeight)
+    .append("svg:g")
+    .attr("transform", "translate(40, 40)");
+
+    // Create a tree "canvas"
+    var tree = d3.layout.tree().size([treeWidth, treeHeight]);
+
+    var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.x, d.y]; });
+
+    var nodes = tree.nodes(treeData);
+    var links = tree.links(nodes);
+
+    var link = vis.selectAll("pathlink")
+    .data(links)
+    .enter().append("svg:path")
+    .attr("class", "link")
+    .attr("d", diagonal)
+
+    var node = vis.selectAll("g.node")
+    .data(nodes)
+    .enter().append("svg:g")
+    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y +")";})
+
+    node.append("svg:circle")
+    .attr("r", nodeRadius)
+    .attr("fill", "#111111");
+
+    node.append("svg:text")
+    .attr("dx", function(d) { return d.children ? -8: 8; })
+    .attr("dy", 3)
+    .attr("text-anchor", function (d) {return d.children ? "end" : "start"; })
+    .text(function(d) { return d.num; })
+    .attr("font-size", nodeFontSize)
+    .attr("font-family", "Consolas")
+    .attr("fill", "#111111")
+};
+
+var treeOneData = {"num": "13", "info" : "tst", "children" : 
     [
         {"num" : "5", "children" : [
             {"num" : "3", "children" : [
@@ -134,38 +188,32 @@ var treeData = {"num": "13", "info" : "tst", "children" :
         }
     ]
 };
-    var vis = d3.select("#recursionTreeOne").append("svg:svg")
-    .attr("width", svgCanvasWidth)
-    .attr("height", svgCanvasHeight)
-    .append("svg:g")
-    .attr("transform", "translate(40, 40)");
+appendTreeToID(treeOneData, "#recursionTreeOne", svgCanvasWidthOne, svgCanvasHeightOne, treeWidthOne, treeHeightOne);
+/* ------------------------------------------------------
+ * 
+ * Generate #recursionTreeTwo
+ *  
+ * ------------------------------------------------------ */
 
-    // Create a tree "canvas"
-    var tree = d3.layout.tree().size([treeWidth, treeHeight]);
+var treeTwoData = {
+    "num": "13", "info" : "tst", "children" : 
+    [
+        {"num": "f[5]"},
+        {"num": "8", "children" :
+        [
+            {"num": "5", "children" : 
+            [
+                {"num": "f[4]"},
+                {"num": "f[3]"}
+            ]},
+            {"num": "3", "children" :
+            [
+                {"num": "1"},
+                {"num": "1"}
+            ]}
+        ]},
+        
+    ]
+};
 
-    var diagonal = d3.svg.diagonal()
-    .projection(function(d) { return [d.x, d.y]; });
-
-    var nodes = tree.nodes(treeData);
-    var links = tree.links(nodes);
-
-    var link = vis.selectAll("pathlink")
-    .data(links)
-    .enter().append("svg:path")
-    .attr("class", "link")
-    .attr("d", diagonal)
-
-    var node = vis.selectAll("g.node")
-    .data(nodes)
-    .enter().append("svg:g")
-    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y +")";})
-
-    node.append("svg:circle")
-    .attr("r", 3.5);
-
-    node.append("svg:text")
-    .attr("dx", function(d) { return d.children ? -8: 8; })
-    .attr("dy", 3)
-    .attr("text-anchor", function (d) {return d.children ? "end" : "start"; })
-    .text(function(d) { return d.num; })
-    .attr("font-size", nodeFontSize)
+appendTreeToID(treeTwoData, "#recursionTreeTwo", svgCanvasWidthTwo, svgCanvasHeightTwo, treeWidthTwo, treeHeightTwo);

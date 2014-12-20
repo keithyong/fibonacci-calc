@@ -3,6 +3,7 @@
 }
 body {
 	min-width: 640px;
+	color: #211111;
 }
 #github-logo-repo {
 	margin: 10px;
@@ -46,13 +47,13 @@ h1 {
 	border-left: 1px solid;
 }
 
-/* Style for the D3 tree */
 .node {
     stroke: #fff;
     stroke-width: 1px;
+    fill: #666666;
 }
 
 .link{
     fill: none;
-    stroke: #000;
+    stroke: #666666;
 }
