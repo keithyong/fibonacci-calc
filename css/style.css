@@ -61,9 +61,6 @@ h2 {
     stroke-width: 1px;
     fill: #111111;
 }
-circle:hover {
-    fill: #E74C3C;
-}
 .link{
     fill: none;
     stroke: #111111;
