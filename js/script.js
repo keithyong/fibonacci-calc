@@ -143,7 +143,7 @@ var appendTreeToID = function(treeData, id, svgCanvasWidth, svgCanvasHeight, tre
     .attr("text-anchor", function (d) {return d.children ? "end" : "start"; })
     .text(function(d) { return d.num; })
     .attr("font-size", nodeFontSize)
-    .attr("font-family", "Consolas")
+    .attr("font-family", "Courier")
     .attr("fill", "#111111")
 };
 
