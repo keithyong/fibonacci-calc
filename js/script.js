@@ -1,6 +1,5 @@
-var MAXN = 200;
 var UNKNOWN = -1;
-var f = new Array(MAXN + 1);
+var f = new Array();
 
 /* D3 Tree variables */
 var svgCanvasWidthOne = 700;
