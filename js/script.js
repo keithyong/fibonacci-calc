@@ -1,29 +1,54 @@
 var UNKNOWN = -1;
-var f = new Array();
+var f = [];
 
+/* Media Queries */
+var smartphoneQuery = window.matchMedia("(min-device-width: 320px) and (max-device-width: 480px)");
 /* D3 Tree variables */
-var svgCanvasWidthOne = 700;
-var svgCanvasHeightOne = 400;
-
-var treeWidthOne = 450;
-var treeHeightOne = 300;
-
-var svgCanvasWidthTwo = 550;
-var svgCanvasHeightTwo = 280;
-
-var treeWidthTwo = 300;
-var treeHeightTwo = 180;
-
-var nodeFontSize = 12;
-var nodeRadius = 12;
-
 var mainColor = "#111111";
-
 var strokeWidth = 1;
 
 var nodeFontFamily = "Source Sans Pro";
 var nodeFontFamilyCode = "Courier";
-var nodeFontSize = 14;
+
+/* Device Specific D3 Variables */
+var D3VarsDevices = {
+    desktop: {
+        treeStartX: 8,
+        treeStartY: 15,
+        svgCanvasOneWidth: 700,
+        svgCanvasOneHeight: 400,
+        treeOneWidth: 450,
+        treeOneHeight: 300,
+        svgCanvasTwoWidth: 550,
+        svgCanvasTwoHeight: 280,
+        treeTwoWidth: 300,
+        treeTwoHeight: 180,
+        nodeFontSize: 12,
+        nodeRadius: 12
+    },
+    smartphone: {
+        treeStartX: 8,
+        treeStartY: 15,
+        svgCanvasOneWidth: 320,
+        svgCanvasOneHeight: 200,
+        treeOneWidth: 275,
+        treeOneHeight: 150,
+        svgCanvasTwoWidth: 550,
+        svgCanvasTwoHeight: 280,
+        treeTwoWidth: 300,
+        treeTwoHeight: 180,
+        nodeFontSize: 10,
+        nodeRadius: 8
+    }
+};
+
+/* The main variables wrapper to be used in the program */
+var D3Vars = D3VarsDevices.desktop;
+
+/* Use smartphone variables */
+if (smartphoneQuery.matches) {
+    D3Vars = D3VarsDevices.smartphone;
+}
 
 function init(){
     var num = parseInt(document.getElementById("numinput").value);
@@ -94,7 +119,7 @@ function actualFib(n){
 }
 
 function slowFib(n){
-    if (n == 0){
+    if (n === 0){
         return 0;
     }
     if (n == 1){
@@ -103,20 +128,13 @@ function slowFib(n){
     return slowFib(n - 1) + slowFib(n - 2);
 }
 
-/* ------------------------------------------------------
- * 
- * Generate #recursionTreeOne
- *  
- * ------------------------------------------------------ */
-
-
 
 var appendTreeToID = function(treeData, id, svgCanvasWidth, svgCanvasHeight, treeWidth, treeHeight) {
     var vis = d3.select(id).append("svg:svg")
     .attr("width", svgCanvasWidth)
     .attr("height", svgCanvasHeight)
     .append("svg:g")
-    .attr("transform", "translate(40, 40)");
+    .attr("transform", "translate(" + D3Vars.treeStartX + "," + D3Vars.treeStartY + ")");
 
     // Create a tree "canvas"
     var tree = d3.layout.tree().size([treeWidth, treeHeight]);
@@ -131,18 +149,18 @@ var appendTreeToID = function(treeData, id, svgCanvasWidth, svgCanvasHeight, tre
     .data(links)
     .enter().append("svg:path")
     .attr("class", "link")
-    .attr("d", diagonal)
+    .attr("d", diagonal);
 
     var node = vis.selectAll("g.node")
     .data(nodes)
     .enter().append("svg:g")
-    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y +")";})
+    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y +")";});
 
     node.filter(function(d) {
         return d.num.charAt(0) != 'f';
     })
     .append("svg:circle")
-    .attr("r", nodeRadius)
+    .attr("r", D3Vars.nodeRadius)
     .attr("fill", "white")
     .attr("stroke", "black")
     .attr("stroke-width", strokeWidth);
@@ -165,7 +183,7 @@ var appendTreeToID = function(treeData, id, svgCanvasWidth, svgCanvasHeight, tre
     .attr("dy", 3)
     .attr("text-anchor", "middle")
     .text(function(d) { return d.num; })
-    .attr("font-size", nodeFontSize)
+    .attr("font-size", D3Vars.nodeFontSize)
     .attr("font-family", function(d){
         if (d.num.charAt(0) === 'f')
             return nodeFontFamilyCode;
@@ -174,6 +192,12 @@ var appendTreeToID = function(treeData, id, svgCanvasWidth, svgCanvasHeight, tre
     })
     .attr("fill", "#111111");
 };
+
+/* ------------------------------------------------------
+ * 
+ * Generate #recursionTreeOne
+ *  
+ * ------------------------------------------------------ */
 
 var treeOneData = {"num": "13", "info" : "tst", "children" : 
     [
@@ -216,7 +240,7 @@ var treeOneData = {"num": "13", "info" : "tst", "children" :
         }
     ]
 };
-appendTreeToID(treeOneData, "#recursionTreeOne", svgCanvasWidthOne, svgCanvasHeightOne, treeWidthOne, treeHeightOne);
+appendTreeToID(treeOneData, "#recursionTreeOne", D3Vars.svgCanvasOneWidth, D3Vars.svgCanvasOneHeight, D3Vars.treeOneWidth, D3Vars.treeOneHeight);
 /* ------------------------------------------------------
  * 
  * Generate #recursionTreeTwo
@@ -244,4 +268,4 @@ var treeTwoData = {
     ]
 };
 
-appendTreeToID(treeTwoData, "#recursionTreeTwo", svgCanvasWidthTwo, svgCanvasHeightTwo, treeWidthTwo, treeHeightTwo);
+appendTreeToID(treeTwoData, "#recursionTreeTwo", D3Vars.svgCanvasTwoWidth, D3Vars.svgCanvasTwoHeight, D3Vars.treeTwoWidth, D3Vars.treeTwoHeight);

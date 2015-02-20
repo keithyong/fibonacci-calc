@@ -1,71 +1,68 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="css/skeleton.css">
-        <link rel="stylesheet" type="text/css" href="css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script type="text/javascript" src="d3/d3.js"></script>
-        <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
-
-    </head>
-    <body>
-
-    <nav>
-        <a href="https://github.com/keithyong/fibonacci-calc" target="_blank">
-            <img src="images/GitHub-Mark-64px.png" height="42" id="github-logo-repo">
-        </a>
-    </nav>
-    <div class="container mainprogram">
-        <div class="row">
-            <h1>Fibonacci Calculator</h1>
-            <p>Why Project Euler is important.  </p>
-        </div>
-        
-        <div class="row">
-            <form><input class="u-full-width" type="text" id="numinput" placeholder="Try both ways with 40!"></input></form>
-        </div>
-        <div class="row">
-            <button class="button-primary" onclick="runFastFib()">Fast Way</button>
-            <button onclick="runSlowFib()">Slow Way</button>
-        </div>
-        <div class="row">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="d3/d3.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<nav>
+    <a href="https://github.com/keithyong/fibonacci-calc" target="_blank">
+        <img src="images/GitHub-Mark-64px.png" alt="github-link" height="42" id="github-logo-repo">
+    </a>
+</nav>
+<div class="container mainprogram">
+    <div class="row">
+        <h1>Fibonacci Calculator</h1>
+        <p>Why Project Euler is important.  </p>
+    </div>
+    
+    <div class="row">
+        <form><input class="u-full-width" type="text" id="numinput" placeholder="Try both ways with 40!"></input></form>
+    </div>
+    <div class="row">
+        <button class="button-primary" onclick="runFastFib()">Fast Way</button>
+        <button onclick="runSlowFib()">Slow Way</button>
+    </div>
+    <div class="row">
+    <hr>
+    </div>
+    <p id="result"> </p>
+    <p id="runningTime"> </p>
+    <p id="arrowDown"></p>
+</div>
+<div id="blog-page-one">
+    <div class="container blog">   
         <hr>
-        </div>
-        <p id="result"> </p>
-        <p id="runningTime"> </p>
-        <p id="arrowDown"></p>
+        <h2>Why does this work?</h2>
+        <p>You have probably seen how to calculate the Fibonacci series before with recursion. The simple recursive code sets up the initial 0 and 1 to start the series off, and the recursive function returns the sum of the two Fibonacci numbers until we find our target Fibonacci number. But did you know that this recursive method can take years to find your answer given a large n?</p>
+
+        <script src="https://gist.github.com/keithyong/a248316a6e7708cfeb98.js"></script>
+
+        <p>The slower version repeats itself - a lot. Take a look at the recursion tree for <code>slowFib(13)</code>:</p>     
+
+        <div id="recursionTreeOne"></div>
+
+        <p>That's a lot of slowFib calls! Looking at the tree, we see that the recursive fibonacci function calls <code>slowFib(0) = 1</code> and <code>slowFib(1) = 1</code> exactly 13 times, <code>slowFib(2) = 2</code> exactly 5 times, and so on. Very cool pattern, but very resource intensive. There has to be a better way.</p>
+    
+        <p>Dynamic programming, a technique for saving calculated results, speeds up the program significantly. Instead of calculating <code>slowFib(2)</code> five times, we save the result of the first call to <code>slowFib(2)</code> into an array. Then, whenever the program needs to know what <code>slowFib(2)</code> is, it simply grabs it from the array. 
+        <p>By referring to the array before attempting to recalculate each Fibonacci call, the program reduces a lot of the unnecessary calculations.</p>
+        <p>Here is the fast fibonacci implementation I used for this website:</p>
+        <script src="https://gist.github.com/keithyong/884a70ffb81deb7b2b0d.js"></script>
+        <p>In the implementation, we use an integer array <code>f</code> to store the known Fibonacci numbers. So when <code>dynamicFib</code> finds the answer to <code>fib(7)</code> to be <code>13</code>, it stores <code>f[7] = 13</code>. Then, whenever <code>dynamicFib</code> wants to know <code>fib(7)</code>, it first checks to see if <code>f[7] != UNKNOWN</code>. If so, the program simply uses whatever is in <code>f[7]</code> as the answer to <code>fib[7]</code>, a constant time operation!</p>
+        <p>Now for an example. When the user calls <code>fib(7)</code>, the code firsts sets the zeroth element as 0, and the first element as 1 to get the ball rolling. 
+        <p>By saving the results after computing it, the program no longer has to recalculate all of the repeated fibonacci numbers, and our recursion looks like this:</p>
+        <div id="recursionTreeTwo"></div>
+        <p>So much saved space! This was for <code>fib(13)</code>. Just imagine how much space dynamic programming saves for an operation like <code>fib(100)</code>.</p>
+        <p id="footer">
+        Created by <a href="http://keithy.me" target="_blank">Keith Yong</a>, who is the most awesome person ever.
+        </p>
     </div>
-    <div id="blog-page-one">
-        <div class="container blog">   
-            <hr>
-            <h2>Why does this work?</h2>
-            <p>You have probably seen how to calculate the Fibonacci series before with recursion. The simple recursive code sets up the initial 0 and 1 to start the series off, and the recursive function returns the sum of the two Fibonacci numbers until we find our target Fibonacci number. But did you know that this recursive method can take years to find your answer given a large n?</p>
-
-            <script src="https://gist.github.com/keithyong/a248316a6e7708cfeb98.js"></script>
-
-            <p>The slower version repeats itself - a lot. Take a look at the recursion tree for <code>slowFib(13)</code>:</p>     
-
-            <div id="recursionTreeOne"></div>
-
-            <p>That's a lot of slowFib calls! Looking at the tree, we see that the recursive fibonacci function calls <code>slowFib(0) = 1</code> and <code>slowFib(1) = 1</code> exactly 13 times, <code>slowFib(2) = 2</code> exactly 5 times, and so on. Very cool pattern, but very resource intensive. There has to be a better way.</p>
-        
-            <p>Dynamic programming, a technique for saving calculated results, speeds up the program significantly. Instead of calculating <code>slowFib(2)</code> five times, we save the result of the first call to <code>slowFib(2)</code> into an array. Then, whenever the program needs to know what <code>slowFib(2)</code> is, it simply grabs it from the array. 
-            <p>By referring to the array before attempting to recalculate each Fibonacci call, the program reduces a lot of the unnecessary calculations.</p>
-            <p>Here is the fast fibonacci implementation I used for this website:</p>
-            <script src="https://gist.github.com/keithyong/884a70ffb81deb7b2b0d.js"></script>
-            <p>In the implementation, we use an integer array <code>f</code> to store the known Fibonacci numbers. So when <code>dynamicFib</code> finds the answer to <code>fib(7)</code> to be <code>13</code>, it stores <code>f[7] = 13</code>. Then, whenever <code>dynamicFib</code> wants to know <code>fib(7)</code>, it first checks to see if <code>f[7] != UNKNOWN</code>. If so, the program simply uses whatever is in <code>f[7]</code> as the answer to <code>fib[7]</code>, a constant time operation!</p>
-            <p>Now for an example. When the user calls <code>fib(7)</code>, the code firsts sets the zeroth element as 0, and the first element as 1 to get the ball rolling. 
-            <p>By saving the results after computing it, the program no longer has to recalculate all of the repeated fibonacci numbers, and our recursion looks like this:</p>
-            <div id="recursionTreeTwo"></div>
-            <p>So much saved space! This was for <code>fib(13)</code>. Just imagine how much space dynamic programming saves for an operation like <code>fib(100)</code>.</p>
-            <p id="footer">
-            Created by <a href="http://keithy.me" target="_blank">Keith Yong</a>, who is the most awesome person ever.
-            </p>
-        </div>
-    </div>
-    <script type="text/javascript" src="js/script.js"></script>
-    </body>
-</html>
+</div>
+<script type="text/javascript" src="js/script.js"></script>
+</body>
