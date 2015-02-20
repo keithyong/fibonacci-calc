@@ -1,14 +1,19 @@
+/* Fibonacci Dynamic Programming variables */
 var UNKNOWN = -1;
 var f = [];
 
-/* Media Queries */
-var smartphoneQuery = window.matchMedia("(min-device-width: 320px) and (max-device-width: 480px)");
 /* D3 Tree variables */
 var mainColor = "#111111";
 var strokeWidth = 1;
 
 var nodeFontFamily = "Source Sans Pro";
 var nodeFontFamilyCode = "Courier";
+
+/* Device width */
+var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
+console.log(width);
+
 
 /* Device Specific D3 Variables */
 var D3VarsDevices = {
@@ -27,11 +32,25 @@ var D3VarsDevices = {
         nodeRadius: 12
     },
     smartphone: {
+        treeStartX: 4,
+        treeStartY: 15,
+        svgCanvasOneWidth: width - 20,
+        svgCanvasOneHeight: 220,
+        treeOneWidth: width - 50,
+        treeOneHeight: 180,
+        svgCanvasTwoWidth: 300,
+        svgCanvasTwoHeight: 220,
+        treeTwoWidth: 300,
+        treeTwoHeight: 180,
+        nodeFontSize: 10,
+        nodeRadius: 8
+    },
+    smartphoneLandscape: {
         treeStartX: 8,
         treeStartY: 15,
-        svgCanvasOneWidth: 320,
+        svgCanvasOneWidth: 700,
         svgCanvasOneHeight: 200,
-        treeOneWidth: 275,
+        treeOneWidth: 450,
         treeOneHeight: 150,
         svgCanvasTwoWidth: 550,
         svgCanvasTwoHeight: 280,
@@ -42,12 +61,19 @@ var D3VarsDevices = {
     }
 };
 
+/* Media Queries */
+var smartphoneQuery = window.matchMedia("(min-device-width: 320px) and (max-device-width: 480px)");
+var smartphoneLandscapeQuery = window.matchMedia("(min-device-width: 480) and (max-device-height:400px)");
+
 /* The main variables wrapper to be used in the program */
 var D3Vars = D3VarsDevices.desktop;
 
 /* Use smartphone variables */
 if (smartphoneQuery.matches) {
     D3Vars = D3VarsDevices.smartphone;
+}
+else if (smartphoneLandscapeQuery.matches) {
+    D3Vars = D3VarsDevices.smartphoneLandscape;
 }
 
 function init(){
